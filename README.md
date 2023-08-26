@@ -10,8 +10,6 @@ EXAMPLE OF ENVIRONMENT VARIABLES:
 EMAIL="example@email.com"
 PW="password25"
 USERNAME1= "usermname"
-INVALID_EMAIL= "example@email.com"
-INVALID_PW = "TeiDFGHJng17865U7"
 TOKEN=""
 KEY=""
 
