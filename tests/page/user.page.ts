@@ -2,8 +2,10 @@ import { type Page, type Locator } from "@playwright/test";
 
 export default class UserPage {
     readonly page: Page
-    readonly createWorkspaceIcon: Locator
+    readonly createBtn: Locator
+    readonly createWorkspaceBtn: Locator
     readonly workspaceSection: Locator
+    readonly boardIcon: Locator
     readonly memberIconBtn: Locator
     readonly logOutBtn: Locator
     readonly confirmLogOutBtn: Locator
@@ -11,8 +13,11 @@ export default class UserPage {
 
     constructor (page: Page) {
         this.page = page;
-        this.createWorkspaceIcon = page.getByTestId('home-navigation-create-team-button');
+        this.createBtn = page.getByTestId('header-create-menu-button');
+        this.createWorkspaceBtn = page.getByTestId('header-create-team-button');
         this.workspaceSection = page.locator('.boards-page-board-section-header');
+        this.boardIcon = page.locator('.board-tile')
+
         // logout
         this.memberIconBtn = page.getByTestId('header-member-menu-button');
         this.logOutBtn = page.getByTestId('account-menu-logout');
@@ -22,11 +27,16 @@ export default class UserPage {
     }
 
     async openCreateWorkspace() {
-        await this.createWorkspaceIcon.click();
+        await this.createBtn.click();
+        await this.createWorkspaceBtn.click();
     }
 
     async openSettingsWorkspace(workspaceName: string) {
         await this.workspaceSection.filter({has: this.page.getByText(workspaceName)}).first().getByText('Settings').click();
+    }
+
+    async openBoard(boardName:string) {
+        await this.boardIcon.first().click()
     }
 
     async logout() {
