@@ -36,10 +36,11 @@ export default class UserPage {
     }
 
     async openBoard(boardName:string) {
-        await this.boardIcon.getByText(boardName).first().click();
+        await this.boardIcon.getByText(boardName).first().click({force:true});
     }
 
     async logout() {
+        await this.memberIconBtn.waitFor()
         await this.memberIconBtn.click();
         await this.logOutBtn.click();
         await this.confirmLogOutBtn.waitFor();
