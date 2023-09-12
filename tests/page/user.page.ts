@@ -40,6 +40,7 @@ export default class UserPage {
     }
 
     async logout() {
+        await this.memberIconBtn.waitFor();
         await this.memberIconBtn.click();
         await this.logOutBtn.click();
         await this.confirmLogOutBtn.waitFor();
