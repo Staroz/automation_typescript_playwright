@@ -36,7 +36,7 @@ export default class UserPage {
     }
 
     async openBoard(boardName:string) {
-        await this.boardIcon.filter({hasText:boardName}).first().click()
+        await this.page.getByText(boardName).first().click({force: true})
     }
 
     async logout() {
