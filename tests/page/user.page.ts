@@ -36,6 +36,8 @@ export default class UserPage {
     }
 
     async openBoard(boardName:string) {
+        await this.page.waitForTimeout(10000)
+        // await this.boardIcon.waitFor();
         await this.page.getByText(boardName).first().click({force: true})
     }
 
