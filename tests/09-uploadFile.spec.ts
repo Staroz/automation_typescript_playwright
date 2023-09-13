@@ -33,7 +33,7 @@ test.describe('Upload a file from local', ()=>{
     });
 
     test.afterEach(async ()=>{
-        // delete board and Workspace
+        // Delete board and Workspace
         const response = await api.deleteWorkspaceApi(variables.workspaceName, variables.boardName);
         expect(response.status()).toBe(200);
     })   
