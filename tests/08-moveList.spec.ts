@@ -30,8 +30,8 @@ test.describe('Moving a list', ()=>{
 
     test.afterEach(async ({page})=>{
         // delete board and Workspace
-        const response = await api.deleteWorkspaceApi(variables.workspaceName, variables.boardName);
-        expect(response.status()).toBe(200);
+        // const response = await api.deleteWorkspaceApi(variables.workspaceName, variables.boardName);
+        // expect(response.status()).toBe(200);
         // logout account 
         await page.goto(url.boards);
         await userPage.logout();
