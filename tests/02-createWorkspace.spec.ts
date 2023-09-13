@@ -26,14 +26,11 @@ test.describe('Tests of UI (Workspaces)', ()=>{
     });
 
     test.afterEach(async ({page})=>{
-        // delete a Workspace with UI and logout
+        // delete a Workspace with UI
         await page.goto(url.boards);
         await userPage.openSettingsWorkspace(variables.workspaceName);
         await workspacePage.deleteWorkspace(variables.workspaceName);
         await expect(userPage.actionAlert).toHaveText(messages.alertMessage);
-
-        await userPage.logout();
-        await expect(page).toHaveURL(url.home);
     })   
 });
 

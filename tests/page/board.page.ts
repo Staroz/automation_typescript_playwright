@@ -23,7 +23,6 @@ export default class BoardPage {
     }
 
     async openCard(cardName:string) {
-        // await this.boardBtn.waitFor();
         await this.cardBtn(cardName).first().click();
     }
 

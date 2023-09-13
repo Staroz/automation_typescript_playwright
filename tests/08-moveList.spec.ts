@@ -28,14 +28,10 @@ test.describe('Moving a list', ()=>{
                 .toContainText(variables.listNameArray[2]);
     });
 
-    test.afterEach(async ({page})=>{
+    test.afterEach(async ()=>{
         // delete board and Workspace
         const response = await api.deleteWorkspaceApi(variables.workspaceName, variables.boardName);
         expect(response.status()).toBe(200);
-        // logout account 
-        await page.goto(url.boards);
-        await userPage.logout();
-        await expect(page).toHaveURL(url.home);
     })   
 });
 
