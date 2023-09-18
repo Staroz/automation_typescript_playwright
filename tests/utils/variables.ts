@@ -11,6 +11,4 @@ export default {
     password: process.env.PW,
     key:process.env.KEY,
     token: process.env.TOKEN,
-    pdfFilePath: 'tests/files/automation.pdf',
-    pdfFileName: 'automation.pdf'
 }
