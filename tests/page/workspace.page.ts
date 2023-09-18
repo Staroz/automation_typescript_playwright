@@ -1,7 +1,7 @@
 import { type Locator, type Page } from '@playwright/test';
 
 
-export default class WorkspaceSettings {
+export default class WorkspacePage{
         readonly page: Page
         readonly workspaceName: Locator
         readonly deleteWorkspaceBtn: Locator

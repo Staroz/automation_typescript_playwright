@@ -1,19 +1,19 @@
 import { test, expect } from '@playwright/test';
-import CreateWorkspace from './page/workspace-page';
-import UserPage from './page/user-page';
-import WorkspaceSettings from './page/workspace-settings-page';
+import CreateWorkspace from './page/createWorkspace.page';
+import UserPage from './page/user.page';
+import WorkspacePage from './page/workspace.page';
 import messages from './utils/messages';
 import url from './utils/url';
 import variables from './utils/variables';
 
 let createWorkspace: CreateWorkspace,
     userPage : UserPage, 
-    workspaceSettings: WorkspaceSettings
+    workspacePage: WorkspacePage
 
 test.beforeEach(async({ page })=>{
     createWorkspace = new CreateWorkspace(page);
     userPage = new UserPage(page);
-    workspaceSettings = new WorkspaceSettings(page);
+    workspacePage = new WorkspacePage(page);
 });
 
 test.describe('Tests of UI (Workspaces)', ()=>{
@@ -22,22 +22,15 @@ test.describe('Tests of UI (Workspaces)', ()=>{
         await page.goto(url.boards);
         await userPage.openCreateWorkspace();
         await createWorkspace.createWorkspace(variables.workspaceName);
-        await expect(workspaceSettings.workspaceName).toHaveText(variables.workspaceName);
+        await expect(workspacePage.workspaceName).toHaveText(variables.workspaceName);
     });
 
     test.afterEach(async ({page})=>{
-        // delete a Workspace and logout
-        createWorkspace = new CreateWorkspace(page);
-        userPage = new UserPage(page);
-        workspaceSettings = new WorkspaceSettings(page);
-
+        // delete a Workspace with UI
         await page.goto(url.boards);
         await userPage.openSettingsWorkspace(variables.workspaceName);
-        await workspaceSettings.deleteWorkspace(variables.workspaceName);
+        await workspacePage.deleteWorkspace(variables.workspaceName);
         await expect(userPage.actionAlert).toHaveText(messages.alertMessage);
-
-        await userPage.logout();
-        await expect(page).toHaveURL(url.home);
     })   
 });
 
