@@ -11,10 +11,10 @@ class Login {
         readonly errorMessage : Locator
         readonly errorMessageAtlassian: Locator
         readonly invalidPasswordInput: Locator
+
     
     constructor (page:Page){
         this.page = page;
-        this.pageLoad = page.goto('');
         this.homeLoginBtn = page.locator('[data-uuid="MJFtCCgVhXrVl7v9HA7EH_login"]');
         this.emailInput = page.locator('#user');
         this.continueBtn = page.locator('#login');
@@ -27,13 +27,14 @@ class Login {
     };
 
     async fillEmail(email:string){
-        await this.pageLoad;
+
         await this.homeLoginBtn.click();
         await this.emailInput.fill(email);
         await this.continueBtn.click();
     };
 
     async fillPassword(password:string) {
+        await this.passwordInput.waitFor();
         await this.passwordInput.fill(password);
         await this.loginButton.click();
     };
@@ -48,6 +49,7 @@ class Login {
         await this.invalidPasswordInput.fill(password);
         await this.continueBtn.click();
     };
+
 }
 export default Login;
 

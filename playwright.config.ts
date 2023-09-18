@@ -10,10 +10,10 @@ require('dotenv').config();
  * See https://playwright.dev/docs/test-configuration.
  */
 export default defineConfig({
-  expect: {
-    timeout: 8 * 1000,
-  },
-  timeout: 60 * 1000,
+  globalSetup: require.resolve('./tests/setup/global-setup.ts'),
+  expect: {timeout: 8 * 1000},
+  timeout: 60000,
+  
   testDir: './tests',
   /* Run tests in files in parallel */
   fullyParallel: false,
@@ -22,16 +22,16 @@ export default defineConfig({
   /* Retry on CI only */
   retries: process.env.CI ? 1 : 0,
   /* Opt out of parallel tests on CI. */
-  workers: process.env.CI ? 1 : undefined,
+  workers: process.env.CI ? 1 : 1,
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
   reporter: 'html',
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
+    
+    storageState: 'storageState.json',
     /* Base URL to use in actions like `await page.goto('/')`. */
     baseURL: 'https://trello.com/',
-
-    /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
-    trace: 'on-first-retry',
+    trace: 'retain-on-failure',
     screenshot: 'only-on-failure',
     video: 'retain-on-failure',
   },
@@ -40,7 +40,11 @@ export default defineConfig({
   projects: [
     {
       name: 'chromium',
-      use: { ...devices['Desktop Chrome'] },
+      timeout: 60000,
+      expect: {timeout: 8000},
+      use: { ...devices['Desktop Chrome'],
+      viewport: { width: 1500, height: 680 },
+    },
     },
 
     // {
